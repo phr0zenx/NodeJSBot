@@ -12,7 +12,7 @@ client.on('message', message => {
   console.log(strMessage);
   var procword = '!anna';
   if (!!strMessage && strMessage.substring(0, procword.length) === procword) {
-    var strQuery = message.content.substring(6,message.content.length-1);
+    var strQuery = message.content.substring(6,message.content.length);
     console.log(strQuery);
     if(!!strQuery) {
       var httpQuery = {

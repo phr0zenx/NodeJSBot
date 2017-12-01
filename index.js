@@ -21,7 +21,8 @@ client.on('message', message => {
       };
       fetchWiki(httpQuery,function(objResponse) {
         console.log(objResponse);
-        message.channel.send(objResponse);
+        var objJson = JSON.parse(objResponse);
+        message.channel.send(JSON.stringify(objJson.query.pages));
       });
     }
   }

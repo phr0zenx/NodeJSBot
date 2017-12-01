@@ -46,12 +46,12 @@ function parseWikiJson(objJson) {
       var aryMatch = tmpJson.match(regPattern);
       if (aryMatch.length > 0) {
         output = '```' + aryMatch[0].replace("\\n","").replace("|","") + '\n' + 
-          aryMatch[1].replace("\\n","").replace("|","") + 
-          aryMatch[2].replace("\\n","").replace("|","") + 
-          aryMatch[3].replace("\\n","").replace("|","") + 
-          aryMatch[4].replace("\\n","").replace("|","") + 
-          aryMatch[5].replace("\\n","").replace("|","") + 
-          aryMatch[6].replace("\\n","").replace("|","") + 
+          aryMatch[1].replace("\\n","").replace("|","") + '\n' + 
+          aryMatch[2].replace("\\n","").replace("|","") + '\n' + 
+          aryMatch[3].replace("\\n","").replace("|","") + '\n' + 
+          aryMatch[4].replace("\\n","").replace("|","") + '\n' + 
+          aryMatch[5].replace("\\n","").replace("|","") + '\n' + 
+          aryMatch[6].replace("\\n","").replace("|","") + '\n' + 
           '```'
       }
       return output;

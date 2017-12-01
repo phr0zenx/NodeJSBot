@@ -1,30 +1,28 @@
-var express = require('express');
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
 var http = require('http');
-var app = express();
 
-app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/public'));
+client.on('ready', ()=> {
+  console.log('ONLINE');
+});
 
-app.get('/:id', function(request, response) {
-  var strID = request.params.id;
-  if (!!strID) {
-    var httpQuery = {
-      host: 'aigis.wikia.com',
-      path: '/api.php?format=json&action=query&titles=' + strID + '&prop=revisions&rvprop=content'
-    };
-    fetchWiki(httpQuery,function(objResponse) {
-      console.log(objResponse);
-      response.send(objResponse);
-    });
-  } else {
-    response.send('uhh');
+client.on('message', message => {
+  if (!!message.content && message.content.substring(0, 4) === '!anna') {
+    var strQuery = message.content.substring(6,message.content.length-1);
+    if(!!strQuery) {
+      var httpQuery = {
+        host: 'aigis.wikia.com',
+        path: '/api.php?format=json&action=query&titles=' + strQuery + '&prop=revisions&rvprop=content'
+      };
+      fetchWiki(httpQuery,function(objResponse) {
+        console.log(objResponse);
+        message.channel.send(objResponse);
+      });
+    }
   }
-  
 });
 
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
-});
 
 function fetchWiki(objRequest,callback) {
   return http.request(objRequest, function(response) {
@@ -37,4 +35,6 @@ function fetchWiki(objRequest,callback) {
     });
   }).end();
 }
+
+client.login(process.env.BOT_TOKEN);
 

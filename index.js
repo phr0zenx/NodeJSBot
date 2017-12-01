@@ -2,20 +2,19 @@ var express = require('express');
 var http = require('http');
 var app = express();
 
-
-
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/:id', function(request, response) {
   var strID = request.params.id;
   if (!!strID) {
-    var httpquery = {
+    var httpQuery = {
       host: 'aigis.wikia.com',
-      path: '/api.php?format=json&action=query&titles=Leeanne&prop=revisions&rvprop=content'
+      path: '/api.php?format=json&action=query&titles=' + strID + '&prop=revisions&rvprop=content'
     };
-    http.request(httpquery, postHttp).end();
-    //response.send('Hello World!' + strID);
+    fetchWiki(httpQuery,function(objResponse) {
+      response.send('hi');
+    });
   } else {
     response.send('uhh');
   }
@@ -26,17 +25,17 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 });
 
-postHttp = function(response) {
-   var str = '';
-
-  //another chunk of data has been recieved, so append it to `str`
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
-
-  //the whole response has been recieved, so we just print it out here
-  response.on('end', function () {
-    console.log(str);
-    //response.send(str);
-  });
+function fetchWiki(objRequest,callback) {
+  return http.get(objRequest, function(response) {
+    var body = '';
+    response.on('data', function(d) {
+      body += d;
+    });
+    response.on('end', function(d) {
+      console.log(body);
+      var parsed = JSON.parse(body);
+      callback(parsed);
+    });
+  }
 }
+

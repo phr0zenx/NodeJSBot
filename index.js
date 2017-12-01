@@ -28,7 +28,7 @@ app.listen(app.get('port'), function() {
 });
 
 function fetchWiki(objRequest,callback) {
-  return http.get(objRequest, function(response) {
+  return http.request(objRequest, function(response) {
     var body = '';
     response.on('data', function(d) {
       body += d;
@@ -38,6 +38,6 @@ function fetchWiki(objRequest,callback) {
       //var parsed = JSON.parse(body);
       callback(body);
     });
-  }
+  }).end();
 }
 

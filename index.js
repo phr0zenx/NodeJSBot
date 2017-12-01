@@ -44,14 +44,17 @@ function parseWikiJson(objJson) {
       var tmpJson = JSON.stringify(objJson[docid].revisions[0]);
       var regPattern = /\|.*?\\n/g;
       var aryMatch = tmpJson.match(regPattern);
+      var regPattern2 = /gallery\\u003E\\n.*?\\n/g;
+      var aryImg = tmpJson.match(regPattern);
       if (aryMatch.length > 0) {
-        output = '```' + aryMatch[0].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
-          aryMatch[1].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
-          aryMatch[2].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
-          aryMatch[3].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
-          aryMatch[4].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
-          aryMatch[5].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
-          aryMatch[6].replace("\\n","").replace("|","").replace("\u003Cbr\u003E","") + '\n' + 
+        output = 'http://aigis.wikia.com/wiki/File:' + aryImg[0].replace('gallery\u003E\\n','') + '\n' +
+          '```' + 
+          cleanStr(aryMatch[0]) + '\n' + 
+          cleanStr(aryMatch[1]) + '\n' + 
+          cleanStr(aryMatch[2]) + '\n' + 
+          cleanStr(aryMatch[3]) + '\n' + 
+          cleanStr(aryMatch[5]) + '\n' + 
+          cleanStr(aryMatch[6]) + '\n' + 
           '```'
       }
       return output;
@@ -59,6 +62,9 @@ function parseWikiJson(objJson) {
   }
 }
 
+function cleanStr(strInput) {
+  return strInput.replace("\\n","").replace("|","").replace("\u003Cbr\u003E","");
+}
 function fetchWiki(objRequest,callback) {
   return http.request(objRequest, function(response) {
     var body = '';

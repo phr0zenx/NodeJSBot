@@ -36,7 +36,7 @@ postHttp = function(response) {
 
   //the whole response has been recieved, so we just print it out here
   response.on('end', function () {
-    //console.log(str);
-    response.send(str);
+    console.log(str);
+    //response.send(str);
   });
 }

@@ -25,7 +25,7 @@ client.on('message', message => {
         
         var output = parseWikiJson(objJson.query.pages);
         if (output !== '') {
-          message.channel.send(JSON.stringify(output));
+          message.channel.send(output);
         }
         
       });
@@ -40,8 +40,16 @@ function parseWikiJson(objJson) {
     if (docid === -1) {
       return strMessage;
     } else {
-      var tmpJson = objJson[docid].revisions[0];
-      return tmpJson;
+      var output = '';
+      var tmpJson = JSON.stringify(objJson[docid].revisions[0]);
+      var regPattern = /\|.*?\\n/g;
+      var aryMatch = tmpJson.match(regPattern);
+      if (aryMatch.length > 0) {
+        output = '```' +
+          aryMatch[0] + '\n' +
+          '```'
+      }
+      return output;
     }
   }
 }

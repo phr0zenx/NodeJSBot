@@ -13,7 +13,9 @@ app.use(express.static(__dirname + '/public'));
 app.get('/:id', function(request, response) {
   var strID = req.params.id;
   if (!!strID) {
-    response.send('Hello World!');
+    response.send('Hello World!' + strID);
+  } else {
+    response.send('uhh');
   }
   
 });

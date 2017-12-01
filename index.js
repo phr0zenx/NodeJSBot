@@ -10,7 +10,7 @@ var options = {
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
-app.get('/:id', function(request, response) {
+app.get('/t/:id', function(request, response) {
   var strID = req.params.id;
   if (!!strID) {
     response.send('Hello World!' + strID);

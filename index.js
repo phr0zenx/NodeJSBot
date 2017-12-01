@@ -40,7 +40,7 @@ function parseWikiJson(objJson) {
     if (docid === -1) {
       return strMessage;
     } else {
-      var tmpJson = objJson[docid].revisions;
+      var tmpJson = objJson[docid].revisions[0];
       return tmpJson;
     }
   }

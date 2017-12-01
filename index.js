@@ -10,6 +10,7 @@ client.on('ready', ()=> {
 client.on('message', message => {
   if (!!message.content && message.content.substring(0, 4) === '!anna') {
     var strQuery = message.content.substring(6,message.content.length-1);
+    console.log(strQuery);
     if(!!strQuery) {
       var httpQuery = {
         host: 'aigis.wikia.com',

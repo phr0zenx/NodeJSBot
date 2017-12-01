@@ -45,7 +45,7 @@ function parseWikiJson(objJson) {
       var regPattern = /\|.*?\\n/g;
       var aryMatch = tmpJson.match(regPattern);
       var regPattern2 = /gallery\\u003E\\n.*?\\n/g;
-      var aryImg = tmpJson.match(regPattern);
+      var aryImg = tmpJson.match(regPattern2);
       if (aryMatch.length > 0) {
         output = 'http://aigis.wikia.com/wiki/File:' + aryImg[0].replace('gallery\u003E\\n','') + '\n' +
           '```' + 

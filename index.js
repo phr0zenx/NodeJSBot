@@ -45,10 +45,7 @@ function parseWikiJson(objJson) {
       var regPattern = /\|.*?\\n/g;
       var aryMatch = tmpJson.match(regPattern);
       if (aryMatch.length > 0) {
-        output = '```' +
-          aryMatch[0].replace("\n","") + \
-          aryMatch[1].replace("\n","") + \
-          '```'
+        output = '' + aryMatch[0].replace("\n","") + '\n' + aryMatch[1].replace("\n","") + ''
       }
       return output;
     }

@@ -13,7 +13,9 @@ app.get('/:id', function(request, response) {
       path: '/api.php?format=json&action=query&titles=' + strID + '&prop=revisions&rvprop=content'
     };
     fetchWiki(httpQuery,function(objResponse) {
-      response.send('hi');
+      //response.send('hi');
+      console.log(objResponse);
+      response.send(objResponse);
     });
   } else {
     response.send('uhh');
@@ -33,8 +35,8 @@ function fetchWiki(objRequest,callback) {
     });
     response.on('end', function(d) {
       console.log(body);
-      var parsed = JSON.parse(body);
-      callback(parsed);
+      //var parsed = JSON.parse(body);
+      callback(body);
     });
   }
 }

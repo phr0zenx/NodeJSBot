@@ -10,8 +10,8 @@ client.on('ready', ()=> {
 client.on('message', message => {
   var strMessage = message.content;
   console.log(strMessage);
-  console.log(strMessage.substring(0, 4));
-  if (!!strMessage && strMessage.substring(0, 4) === '!anna') {
+  var procword = '!anna';
+  if (!!strMessage && strMessage.substring(0, procword.length) === procword) {
     var strQuery = message.content.substring(6,message.content.length-1);
     console.log(strQuery);
     if(!!strQuery) {

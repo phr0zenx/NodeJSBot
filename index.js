@@ -22,12 +22,29 @@ client.on('message', message => {
       fetchWiki(httpQuery,function(objResponse) {
         console.log(objResponse);
         var objJson = JSON.parse(objResponse);
-        message.channel.send(JSON.stringify(objJson.query.pages));
+        
+        var output = parseWikiJson(objJson.query.pages);
+        if (output !== '') {
+          message.channel.send(JSON.stringify(output));
+        }
+        
       });
     }
   }
 });
 
+function parseWikiJson(objJson) {
+  var strMessage = '';
+  if (!!objJson) {
+    var docid = Object.keys(objJson)[0];
+    if (docid === -1) {
+      return strMessage;
+    } else {
+      var tmpJson = objJson[docid].revisions;
+      return tmpJson;
+    }
+  }
+}
 
 function fetchWiki(objRequest,callback) {
   return http.request(objRequest, function(response) {
